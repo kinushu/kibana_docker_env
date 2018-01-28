@@ -1,0 +1,31 @@
+{% capture today %}{{ 'now' | date: '%Y%m%d' }}{% endcapture %}
+in:
+  type: file
+  path_prefix: log/access_ltsv.log
+  parser:
+    type: ltsv
+    charset: UTF-8
+    newline: LF
+    schema:
+    - {name: domain, type: string}
+    - {name: host, type: string}
+    - {name: server, type: string}
+    - {name: ident, type: string}
+    - {name: user, type: string}
+    - {name: time, type: timestamp, time_format: '%d/%b/%Y:%H:%M:%S'}
+    - {name: method, type: string}
+    - {name: path, type: string}
+    - {name: protocol, type: string}
+    - {name: status, type: long}
+    - {name: size, type: long}
+    - {name: referer, type: string}
+    - {name: agent, type: string}
+    - {name: response_time, type: long}
+exec: {}
+out:
+  type: elasticsearch
+  mode: insert
+  nodes:
+    - {host: elasticsearch, port: 9200}
+  index: accesslog-{{ today }}
+  index_type: stacktrace

@@ -1,0 +1,7 @@
+in:
+  type: file
+  path_prefix: log/access_ltsv.log
+  parser:
+    type: ltsv
+exec: {}
+out: {type: stdout}
