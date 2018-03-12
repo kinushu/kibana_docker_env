@@ -5,14 +5,14 @@ services:
     volumes:
     - ./embulk/works/:/works/
   kibana:
-    image: docker.elastic.co/kibana/kibana:5.6.6
+    image: docker.elastic.co/kibana/kibana-oss:6.2.2
     environment:
       - ELASTICSEARCH_URL=http://elasticsearch:9200/
     ports:
       - "5601:5601"
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.6
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
     volumes:
     - ./es/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     - ./es-data:/usr/share/elasticsearch/data
